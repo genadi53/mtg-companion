@@ -3,6 +3,8 @@ import express from "express";
 import cors from "cors";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 const PORT = 5000;
 
@@ -33,14 +35,20 @@ app.get("/cards/:set", async (req, res) => {
 app.get("/card/:name", async (req, res) => {
   const cards = [];
   const { name } = req.params;
-  await mtg.card
-    .all({ name }) //  pageSize: 1
-    .on("data", (card) => {
-      cards.push(card);
-    })
-    .on("end", () => {
-      res.json(cards);
-    });
+  const { filters } = req.body;
+  if (filters) {
+    const foundCards = await mtg.card.where({ name, ...filters });
+    res.json(foundCards);
+  } else {
+    await mtg.card
+      .all({ name }) //  pageSize: 1
+      .on("data", (card) => {
+        cards.push(card);
+      })
+      .on("end", () => {
+        res.json(cards);
+      });
+  }
 });
 
 app.get("/sets", async (req, res) => {
