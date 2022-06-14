@@ -61,3 +61,11 @@ export type Card = {
   related_uris: object;
   purchase_uris: object;
 };
+
+export type ReturnData = {
+  object: string;
+  total_cards: number;
+  has_more: boolean;
+  data: Card[];
+  next_page?: string;
+};

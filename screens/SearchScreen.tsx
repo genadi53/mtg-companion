@@ -10,24 +10,29 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import CardPreview from "../components/CardPreview";
+import CardsContainer from "../components/CardsContainer";
 import { View } from "../components/Themed";
 import { windowWidth } from "../constants/Layout";
 import { RootTabScreenProps } from "../types";
 import { Card } from "../utils/customTypes";
-import { getAllSets, fetchSampleCards } from "../utils/fetchData";
+import {
+  getAllSets,
+  fetchSampleCards,
+  fetchMultipleCards,
+} from "../utils/fetchData";
 
 export default function SearchScreen({
   navigation,
 }: RootTabScreenProps<"Search">) {
   const [text, onChangeText] = useState<string>("");
-  const [cards, setCards] = useState<Card | null>(null);
+  const [cards, setCards] = useState<Card[] | null>(null);
 
   useEffect(() => {
     if (!text) return;
     const getCards = async () => {
-      const c = await fetchSampleCards(text);
-      console.log(c);
-      setCards(c);
+      const c = await fetchMultipleCards(text);
+      // console.log(c);
+      setCards(c ? c : null);
     };
     getCards();
   }, [text]);
@@ -47,45 +52,23 @@ export default function SearchScreen({
         placeholder="e.g. Black Lotus"
         value={text}
       />
-
-      {cards && (
-        <CardPreview
-          imageUrl={cards.image_uris ? cards.image_uris["normal"] : ""}
-          name={cards.name}
-        />
-      )}
+      {cards && <CardsContainer cards={cards} />}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container2: {
-    display: "flex",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    width: windowWidth,
-    height: 200,
-    padding: 2.5,
-
-    borderWidth: 1,
-    borderColor: "red",
-    marginTop: 5,
-  },
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
   input: {
+    width: windowWidth * 0.8,
     height: 40,
     margin: 12,
     borderWidth: 1,
