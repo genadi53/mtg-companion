@@ -5,23 +5,33 @@ import { windowWidth } from "../constants/Layout";
 type CardPreviewProps = {
   name: string;
   imageUrl: string | null;
+  imageUrls?: string[];
+  isDoubleFaced: boolean;
 };
 
-const CardPreview: React.FC<CardPreviewProps> = ({ name, imageUrl }) => {
-  return (
-    <View style={styles.container}>
-      {imageUrl ? (
-        <Image
-          source={{
-            uri: imageUrl,
-          }}
-          style={styles.image}
-        />
-      ) : (
-        <Text>{name}</Text>
-      )}
-    </View>
-  );
+const CardPreview: React.FC<CardPreviewProps> = ({
+  name,
+  imageUrl,
+  isDoubleFaced,
+}) => {
+  let display = null;
+
+  if (isDoubleFaced) {
+    display = null;
+  } else {
+    display = imageUrl ? (
+      <Image
+        source={{
+          uri: imageUrl,
+        }}
+        style={styles.image}
+      />
+    ) : (
+      <Text>{name}</Text>
+    );
+  }
+
+  return <View style={styles.container}>{display}</View>;
 };
 
 export default CardPreview;

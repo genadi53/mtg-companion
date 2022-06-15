@@ -10,6 +10,7 @@ export const getAllSets = async () => {
 // https://api.scryfall.com/cards/search
 
 export const fetchSampleCards = async (name: string) => {
+  const cards: Card[] = [];
   console.log(name);
   const str = name.replace(" ", "+").toLowerCase();
   // console.log(filters);
@@ -24,8 +25,8 @@ export const fetchSampleCards = async (name: string) => {
     );
 
     if (result.status === 200) {
-      const cards = await result.json();
-      // console.log(cards);
+      const card = await result.json();
+      cards.push(card);
       return cards;
     }
   } catch (error) {

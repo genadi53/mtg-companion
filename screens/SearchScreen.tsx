@@ -11,6 +11,8 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import CardPreview from "../components/CardPreview";
 import CardsContainer from "../components/CardsContainer";
+import SearchBar from "../components/SearchBar";
+import SwitchButton from "../components/SwitchButton";
 import { View } from "../components/Themed";
 import { windowWidth } from "../constants/Layout";
 import { RootTabScreenProps } from "../types";
@@ -31,7 +33,9 @@ export default function SearchScreen({
     if (!text) return;
     const getCards = async () => {
       const c = await fetchMultipleCards(text);
-      // console.log(c);
+      console.log("*****************");
+      console.log(c);
+
       setCards(c ? c : null);
     };
     getCards();
@@ -46,12 +50,14 @@ export default function SearchScreen({
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
+      {/* <TextInput
         style={styles.input}
         onChangeText={onChangeText}
         placeholder="e.g. Black Lotus"
         value={text}
-      />
+      /> */}
+      <SearchBar text={text} onChangeText={onChangeText} />
+      <SwitchButton size={50} />
       {cards && <CardsContainer cards={cards} />}
     </SafeAreaView>
   );
@@ -67,11 +73,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  input: {
-    width: windowWidth * 0.8,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
+  // input: {
+  //   width: windowWidth * 0.8,
+  //   height: 40,
+  //   margin: 12,
+  //   borderWidth: 1,
+  //   padding: 10,
+  // },
 });

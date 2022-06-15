@@ -24,7 +24,13 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cards }) => {
       numColumns={2}
       renderItem={({ item }) => (
         <CardPreview
-          imageUrl={item.image_uris ? item.image_uris["normal"] : null}
+          imageUrl={
+            item.image_uris
+              ? item.image_uris["normal"]
+              : item.card_faces
+              ? item.card_faces[0].image_uris["normal"]
+              : item.card_faces[1].image_uris["normal"]
+          }
           name={item.name}
         />
       )}
