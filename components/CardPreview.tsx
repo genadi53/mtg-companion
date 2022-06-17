@@ -1,6 +1,5 @@
 import { StyleSheet, Image, Text, View } from "react-native";
 import React, { useState } from "react";
-import { windowWidth } from "../constants/Layout";
 import SwitchButton from "./SwitchButton";
 
 type CardPreviewProps = {
@@ -21,15 +20,8 @@ const CardPreview: React.FC<CardPreviewProps> = ({
 
   if (isDoubleFaced) {
     display = (
-      <View style={styles.switchContainer}>
-        <View
-          style={{
-            position: "relative",
-            top: "35%",
-            left: "72.5%",
-            zIndex: 10,
-          }}
-        >
+      <>
+        <View style={styles.switchBtn}>
           <SwitchButton
             size={35}
             onClick={() => {
@@ -39,11 +31,11 @@ const CardPreview: React.FC<CardPreviewProps> = ({
         </View>
         <Image
           source={{
-            uri: imageUrls[activeIdx],
+            uri: imageUrls![activeIdx],
           }}
           style={styles.image}
         />
-      </View>
+      </>
     );
   } else {
     display = imageUrl ? (
@@ -70,13 +62,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 10,
   },
-  switchContainer: {
-    padding: 0,
-    margin: 0,
-  },
   image: {
     resizeMode: "contain",
     width: 200,
     height: 250,
+  },
+  switchBtn: {
+    position: "absolute",
+    top: "35%",
+    left: "72.5%",
+    zIndex: 10,
   },
 });

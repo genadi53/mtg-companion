@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Text, View, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import React from "react";
 import CardPreview from "./CardPreview";
 import { Card } from "../utils/customTypes";
@@ -25,7 +25,9 @@ const CardsContainer: React.FC<CardsContainerProps> = ({ cards }) => {
       renderItem={({ item }) => (
         <CardPreview
           imageUrl={item.image_uris ? item.image_uris["normal"] : null}
-          isDoubleFaced={item.card_faces ? true : false}
+          isDoubleFaced={
+            item.card_faces && item.card_faces[0].image_uris ? true : false
+          }
           imageUrls={
             item.card_faces && item.card_faces.length > 0
               ? [
