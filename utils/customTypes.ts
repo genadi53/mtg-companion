@@ -15,7 +15,7 @@ export type Card = {
   layout: string;
   highres_image: boolean;
   image_status: string;
-  image_uris?: string;
+  image_uris?: [];
   cmc: number;
   type_line: string;
   color_identity: string[];
@@ -68,4 +68,13 @@ export type ReturnData = {
   has_more: boolean;
   data: Card[];
   next_page?: string;
+};
+
+export type ImageTypes = {
+  small: string;
+  normal: string;
+  large: string;
+  png: string;
+  art_crop: string;
+  border_crop: string;
 };

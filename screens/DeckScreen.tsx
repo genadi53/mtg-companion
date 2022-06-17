@@ -12,7 +12,6 @@ export default function DeckScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <SwitchButton size={50} />
     </View>
   );
 }

@@ -13,9 +13,10 @@ import Colors from "../constants/Colors";
 
 type SwitchButtonProps = {
   size: number;
+  onClick: Function;
 };
 
-const SwitchButton: React.FC<SwitchButtonProps> = ({ size }) => {
+const SwitchButton: React.FC<SwitchButtonProps> = ({ size, onClick }) => {
   const colorScheme = useColorScheme();
 
   const [color, setColor] = useState<string>(
@@ -28,6 +29,7 @@ const SwitchButton: React.FC<SwitchButtonProps> = ({ size }) => {
   return (
     <TouchableOpacity
       onPress={(event: GestureResponderEvent) => {
+        onClick();
         // if (
         //   color === Colors.dark.text &&
         //   backgroung === Colors.dark.background

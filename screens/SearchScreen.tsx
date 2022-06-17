@@ -57,7 +57,6 @@ export default function SearchScreen({
         value={text}
       /> */}
       <SearchBar text={text} onChangeText={onChangeText} />
-      <SwitchButton size={50} />
       {cards && <CardsContainer cards={cards} />}
     </SafeAreaView>
   );
