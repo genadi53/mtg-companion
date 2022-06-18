@@ -62,7 +62,15 @@ const RootNavigator = () => {
         options={{ title: "Oops!" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="CardInfo" component={CardInfoScreen} />
+        <Stack.Screen
+          name="CardInfo"
+          component={CardInfoScreen}
+          options={({ route }) => {
+            return {
+              headerTitle: route.params.name,
+            };
+          }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );

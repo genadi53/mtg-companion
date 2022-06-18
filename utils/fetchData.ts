@@ -29,6 +29,7 @@ export const fetchSampleCards = async (name: string) => {
       cards.push(card);
       return cards;
     }
+    return null;
   } catch (error) {
     console.log(error);
     return null;
@@ -63,6 +64,25 @@ export const fetchMultipleCards = async (name: string, filters?: {}) => {
     //     isFinished = true;
     //   }
     // } while (!isFinished);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const fetchCardById = async (id: string) => {
+  try {
+    const result = await fetch(`https://api.scryfall.com/cards/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (result.status === 200) {
+      const card: Card = await result.json();
+      return card;
+    }
+    return null;
   } catch (error) {
     console.log(error);
     return null;

@@ -1,29 +1,40 @@
-import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet } from "react-native";
-
+import { useRoute } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import CardPreview from "../components/CardPreview";
 import { Text, View } from "../components/Themed";
+import { Card } from "../utils/customTypes";
+import { fetchCardById } from "../utils/fetchData";
 
 export default function CardInfoScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
+  const route = useRoute();
+  const { id }: { id: string } = route.params;
+  const [card, setCard] = useState<Card | null>(null);
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
-    </View>
+  useEffect(() => {
+    const fetchById = async () => {
+      const res = await fetchCardById(id);
+      setCard(res);
+    };
+    fetchById();
+  }, [id]);
+
+  return (
+    <ScrollView style={styles.container}>
+      {card ? (
+        <CardPreview card={card} width={300} height={350} />
+      ) : (
+        <Text>Loading ...</Text>
+      )}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   title: {
     fontSize: 20,

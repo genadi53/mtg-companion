@@ -50,12 +50,6 @@ export default function SearchScreen({
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        placeholder="e.g. Black Lotus"
-        value={text}
-      /> */}
       <SearchBar text={text} onChangeText={onChangeText} />
       {cards && <CardsContainer cards={cards} />}
     </SafeAreaView>
@@ -72,11 +66,4 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
   },
-  // input: {
-  //   width: windowWidth * 0.8,
-  //   height: 40,
-  //   margin: 12,
-  //   borderWidth: 1,
-  //   padding: 10,
-  // },
 });
