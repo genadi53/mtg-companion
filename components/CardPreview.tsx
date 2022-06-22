@@ -28,7 +28,7 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, width, height }) => {
   const [activeIdx, setActive] = useState<number>(0);
   if (isDoubleFaced) {
     display = (
-      <>
+      <View>
         <View style={styles.switchBtn}>
           <SwitchButton
             size={35}
@@ -43,7 +43,7 @@ const CardPreview: React.FC<CardPreviewProps> = ({ card, width, height }) => {
           }}
           style={[styles.image, { width, height }]}
         />
-      </>
+      </View>
     );
   } else {
     display = imageUrl ? (

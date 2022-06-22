@@ -2,7 +2,9 @@ import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Alert, Image, ScrollView, StyleSheet } from "react-native";
 import CardPreview from "../components/CardPreview";
+import LegalFormats from "../components/LegalFormats";
 import { Text, View } from "../components/Themed";
+import { windowHeight, windowWidth } from "../constants/Layout";
 import { Card } from "../utils/customTypes";
 import { fetchCardById } from "../utils/fetchData";
 
@@ -20,9 +22,22 @@ export default function CardInfoScreen() {
   }, [id]);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView>
       {card ? (
-        <CardPreview card={card} width={300} height={350} />
+        <View style={styles.cardContainer}>
+          <View style={{ marginVertical: 20 }}>
+            <CardPreview card={card} width={300} height={350} />
+          </View>
+          <View
+            style={styles.separator}
+            lightColor="#eee"
+            darkColor="rgba(255,255,255,0.1)"
+          />
+          <View>
+            <Text>{card.name}</Text>
+            <LegalFormats legalities={card.legalities as any} />
+          </View>
+        </View>
       ) : (
         <Text>Loading ...</Text>
       )}
@@ -31,10 +46,13 @@ export default function CardInfoScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  cardContainer: {
     flex: 1,
-    // alignItems: "center",
-    // justifyContent: "center",
+    width: windowWidth,
+    height: windowHeight,
+    display: "flex",
+    alignItems: "center",
+    padding: 5,
   },
   title: {
     fontSize: 20,
