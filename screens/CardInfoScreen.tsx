@@ -1,6 +1,7 @@
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import CardInfo from "../components/CardInfo";
 import CardPreview from "../components/CardPreview";
 import LegalFormats from "../components/LegalFormats";
 import { Text, View } from "../components/Themed";
@@ -35,6 +36,7 @@ export default function CardInfoScreen() {
           />
           <View>
             <Text>{card.name}</Text>
+            <CardInfo></CardInfo>
             <LegalFormats legalities={card.legalities as any} />
           </View>
         </View>
