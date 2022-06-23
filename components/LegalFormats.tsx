@@ -17,17 +17,12 @@ type Legalities = {
 };
 
 const formats = [
-  "alchemy",
-  "brawl",
-  "commander",
-  "explorer",
-  "pioneer",
-  "modern",
-  "legacy",
-  "historic",
-  "vintage",
-  "pauper",
-  "penny",
+  ["standard", "alchemy"],
+  ["pioneer", "explorer"],
+  ["modern", "brawl"],
+  ["legacy", "historic"],
+  ["vintage", "pauper"],
+  ["commander", "penny"],
 ];
 
 type LegalFormatsProps = {
@@ -45,26 +40,47 @@ const matchColor = (legality: string) => {
 const LegalFormats: React.FC<LegalFormatsProps> = ({ legalities }) => {
   return (
     <View>
-      <Text>LegalFormats</Text>
-      {formats.map((format, idx) => {
+      {formats.map((entries, idx) => {
         return (
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: matchColor(legalities[format]),
-                width: 85,
-                alignItems: "center",
-              }}
-            >
-              <Text>{legalities[format].replace("_", " ").toUpperCase()} </Text>
+          <View key={idx} style={styles.row}>
+            <View style={styles.sides}>
+              <View
+                style={[
+                  styles.legality,
+                  {
+                    backgroundColor: matchColor(legalities[entries[0]]),
+                  },
+                ]}
+              >
+                <Text style={styles.textLegality}>
+                  {legalities[entries[0]].replace("_", " ").toUpperCase()}
+                </Text>
+              </View>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={styles.textFormat}>{`${entries[0]
+                  .charAt(0)
+                  .toUpperCase()}${entries[0].slice(1)}`}</Text>
+              </View>
             </View>
-            <View style={{}}>
-              <Text>{format}</Text>
+
+            <View style={styles.row}>
+              <View
+                style={[
+                  styles.legality,
+                  {
+                    backgroundColor: matchColor(legalities[entries[1]]),
+                  },
+                ]}
+              >
+                <Text style={styles.textLegality}>
+                  {legalities[entries[1]].replace("_", " ").toUpperCase()}
+                </Text>
+              </View>
+              <View style={{ marginLeft: 10 }}>
+                <Text style={styles.textFormat}>{`${entries[1]
+                  .charAt(0)
+                  .toUpperCase()}${entries[1].slice(1)}`}</Text>
+              </View>
             </View>
           </View>
         );
@@ -77,6 +93,24 @@ export default LegalFormats;
 
 const styles = StyleSheet.create({
   container: {},
-  block: {},
-  text: {},
+  row: {
+    flexDirection: "row",
+    marginBottom: 5,
+    alignItems: "center",
+  },
+  sides: {
+    flexDirection: "row",
+    width: "50%",
+    marginRight: 20,
+  },
+  legality: {
+    width: 85,
+    borderRadius: 2.5,
+    padding: 2.5,
+  },
+  textLegality: { textAlign: "center", color: "white", fontWeight: "600" },
+  textFormat: {
+    textAlign: "center",
+    fontSize: 15,
+  },
 });
