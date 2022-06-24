@@ -1,9 +1,8 @@
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Alert, Image, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import CardInfo from "../components/CardInfo";
 import CardPreview from "../components/CardPreview";
-import LegalFormats from "../components/LegalFormats";
 import { Text, View } from "../components/Themed";
 import { windowHeight, windowWidth } from "../constants/Layout";
 import { Card } from "../utils/customTypes";
@@ -29,15 +28,9 @@ export default function CardInfoScreen() {
           <View style={{ marginVertical: 20 }}>
             <CardPreview card={card} width={300} height={350} />
           </View>
-          <View
-            style={styles.separator}
-            lightColor="#eee"
-            darkColor="rgba(255,255,255,0.1)"
-          />
+
           <View>
-            <Text>{card.name}</Text>
-            <CardInfo></CardInfo>
-            <LegalFormats legalities={card.legalities as any} />
+            <CardInfo card={card}></CardInfo>
           </View>
         </View>
       ) : (

@@ -39,7 +39,7 @@ const matchColor = (legality: string) => {
 
 const LegalFormats: React.FC<LegalFormatsProps> = ({ legalities }) => {
   return (
-    <View>
+    <View style={styles.container}>
       {formats.map((entries, idx) => {
         return (
           <View key={idx} style={styles.row}>
