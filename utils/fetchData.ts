@@ -1,4 +1,4 @@
-import { Card, ReturnData } from "./customTypes";
+import { Card, ReturnData, Set } from "./customTypes";
 
 export const getAllSets = async () => {
   const result = await fetch(`https://api.scryfall.com/sets`);
@@ -81,6 +81,25 @@ export const fetchCardById = async (id: string) => {
     if (result.status === 200) {
       const card: Card = await result.json();
       return card;
+    }
+    return null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const fetchSetByName = async (name: string) => {
+  try {
+    const result = await fetch(`https://api.scryfall.com/sets/${name}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (result.status === 200) {
+      const set: Set = await result.json();
+      return set;
     }
     return null;
   } catch (error) {

@@ -1,7 +1,8 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Card } from "../utils/customTypes";
+import { Card, Set } from "../utils/customTypes";
 import useColorScheme from "../hooks/useColorScheme";
+import { fetchSetByName } from "../utils/fetchData";
 
 type CardSetsProps = {
   card: Card;
@@ -9,20 +10,30 @@ type CardSetsProps = {
 
 export const CardSets: React.FC<CardSetsProps> = ({ card }) => {
   const theme = useColorScheme();
-  const [setUrl, setSetUrl] = useState<string | null>(null);
+  const [setUri, setSetUri] = useState<string | null>(null);
 
-  useEffect(() => {}, [card]);
+  useEffect(() => {
+    const getSetUri = async () => {
+      const set: Set | null = await fetchSetByName(card.set);
+      if (set) {
+        setSetUri(set.icon_svg_uri);
+      }
+    };
+    getSetUri();
+  }, [card]);
 
   return (
     <View style={styles.container}>
       <View style={styles.currentSetContainer}>
+        | null
         <Image
           source={{
-            uri: "https://c2.scryfall.com/file/scryfall-symbols/sets/default.svg?1655697600",
+            uri: setUri
+              ? setUri
+              : "https://c2.scryfall.com/file/scryfall-symbols/sets/default.svg?1655697600",
           }}
-          style={styles.icon}
+          style={[styles.icon, { resizeMode: "stretch" }]}
         />
-
         <View style={{}}>
           <Text style={styles.title}>
             {card.set_name} {card.set.toUpperCase()}
