@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import LegalFormats from "./LegalFormats";
 import { Card } from "../utils/customTypes";
+import { CardSets } from "./CardSets";
 
 type CardInfoProps = {
   card: Card;
@@ -68,6 +69,7 @@ const CardInfo: React.FC<CardInfoProps> = ({ card }) => {
       {display}
       <View style={styles.legalitiesContainer}>
         <LegalFormats legalities={card.legalities as any} />
+        <CardSets card={card} />
       </View>
     </View>
   );
