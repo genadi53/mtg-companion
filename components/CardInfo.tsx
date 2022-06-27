@@ -13,21 +13,59 @@ const displayColorCost = (manaCost: string, cmc: number) => {
 };
 
 const CardInfo: React.FC<CardInfoProps> = ({ card }) => {
+  const isDoubleFaced = card.card_faces && card.card_faces ? true : false;
+
+  let display = null;
+  if (!isDoubleFaced) {
+    display = (
+      <>
+        <View style={styles.titleConatiner}>
+          <Text style={styles.title}>{card.name}</Text>
+        </View>
+        <View style={styles.cardTypeContainer}>
+          <Text style={styles.text}>{card.type_line}</Text>
+        </View>
+        <View style={styles.textBox}>
+          <Text style={styles.text}>{card.oracle_text}</Text>
+        </View>
+        <View style={styles.textBox}>
+          <Text style={styles.artis}>Illustrated by {card.artist}</Text>
+        </View>
+      </>
+    );
+  } else {
+    display = (
+      <>
+        <View style={styles.titleConatiner}>
+          <Text style={styles.title}>{card.card_faces![0].name}</Text>
+        </View>
+        <View style={styles.cardTypeContainer}>
+          <Text style={styles.text}>{card.card_faces![0].type_line}</Text>
+        </View>
+        <View style={styles.textBox}>
+          <Text style={styles.text}>{card.card_faces![0].oracle_text}</Text>
+        </View>
+        <View style={styles.titleConatiner}>
+          <Text style={styles.title}>{card.card_faces![1].name}</Text>
+        </View>
+        <View style={styles.cardTypeContainer}>
+          <Text style={styles.text}>{card.card_faces![1].type_line}</Text>
+        </View>
+        <View style={styles.textBox}>
+          <Text style={styles.text}>{card.card_faces![1].oracle_text}</Text>
+        </View>
+        <View style={styles.textBox}>
+          <Text style={styles.artis}>
+            Illustrated by {card.card_faces![0].artist}
+          </Text>
+        </View>
+      </>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.titleConatiner}>
-        <Text style={styles.title}>{card.name}</Text>
-      </View>
-      <View style={styles.cardTypeContainer}>
-        <Text style={styles.text}>{card.type_line}</Text>
-      </View>
-      <View style={styles.textBox}>
-        <Text style={styles.text}>{card.oracle_text}</Text>
-      </View>
-      <View style={styles.textBox}>
-        <Text style={styles.artis}>Illustrated by {card.artist}</Text>
-      </View>
-
+      {display}
       <View style={styles.legalitiesContainer}>
         <LegalFormats legalities={card.legalities as any} />
       </View>

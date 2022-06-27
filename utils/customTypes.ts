@@ -21,7 +21,7 @@ export type Card = {
   color_identity: string[];
   keywords: string[];
   produced_mana: string[];
-  card_faces?: [];
+  card_faces?: CardFacesDetails[];
   legalities: object;
   games: string[];
   reserved: boolean;
@@ -76,6 +76,19 @@ export type ImageTypes = {
   normal: string;
   large: string;
   png: string;
-  art_crop: string;
-  border_crop: string;
+  art_crop?: string;
+  border_crop?: string;
+};
+
+export type CardFacesDetails = {
+  object: string;
+  name: string;
+  mana_cost: string;
+  type_line: string;
+  oracle_text: string;
+  colors: string[];
+  artist: string;
+  artist_id: string;
+  illustration_id: string;
+  image_uris: ImageTypes;
 };
