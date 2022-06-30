@@ -16,6 +16,7 @@ export type Card = {
   highres_image: boolean;
   image_status: string;
   image_uris?: [];
+  mana_cost: string;
   cmc: number;
   type_line: string;
   color_identity: string[];
@@ -114,4 +115,19 @@ export type CardFacesDetails = {
   artist_id: string;
   illustration_id: string;
   image_uris: ImageTypes;
+};
+
+export type Symbol = {
+  object: string;
+  symbol: string;
+  svg_uri: string;
+  loose_variant: string | null;
+  english: string;
+  transposable: boolean;
+  represents_mana: boolean;
+  appears_in_mana_costs: boolean;
+  cmc: number | null;
+  funny: boolean;
+  colors: [];
+  gatherer_alternates: [] | null;
 };

@@ -25,7 +25,6 @@ export const CardSets: React.FC<CardSetsProps> = ({ card }) => {
   return (
     <View style={styles.container}>
       <View style={styles.currentSetContainer}>
-        | null
         <Image
           source={{
             uri: setUri

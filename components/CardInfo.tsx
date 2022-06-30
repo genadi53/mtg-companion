@@ -3,13 +3,13 @@ import React from "react";
 import LegalFormats from "./LegalFormats";
 import { Card } from "../utils/customTypes";
 import { CardSets } from "./CardSets";
+import ManaSymbol from "./ManaSymbol";
 
 type CardInfoProps = {
   card: Card;
 };
 
 const displayColorCost = (manaCost: string, cmc: number) => {
-  const symbolsArr = manaCost.replaceAll("{", "").replaceAll("}", "").split("");
   return null;
 };
 
@@ -22,6 +22,7 @@ const CardInfo: React.FC<CardInfoProps> = ({ card }) => {
       <>
         <View style={styles.titleConatiner}>
           <Text style={styles.title}>{card.name}</Text>
+          <ManaSymbol manaStr={card.mana_cost} />
         </View>
         <View style={styles.cardTypeContainer}>
           <Text style={styles.text}>{card.type_line}</Text>
@@ -39,6 +40,7 @@ const CardInfo: React.FC<CardInfoProps> = ({ card }) => {
       <>
         <View style={styles.titleConatiner}>
           <Text style={styles.title}>{card.card_faces![0].name}</Text>
+          <ManaSymbol manaStr={card.card_faces![0].mana_cost} />
         </View>
         <View style={styles.cardTypeContainer}>
           <Text style={styles.text}>{card.card_faces![0].type_line}</Text>
@@ -48,6 +50,7 @@ const CardInfo: React.FC<CardInfoProps> = ({ card }) => {
         </View>
         <View style={styles.titleConatiner}>
           <Text style={styles.title}>{card.card_faces![1].name}</Text>
+          <ManaSymbol manaStr={card.card_faces![1].mana_cost} />
         </View>
         <View style={styles.cardTypeContainer}>
           <Text style={styles.text}>{card.card_faces![1].type_line}</Text>

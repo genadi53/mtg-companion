@@ -1,4 +1,4 @@
-import { Card, ReturnData, Set } from "./customTypes";
+import { Card, ReturnData, Set, Symbol } from "./customTypes";
 
 export const getAllSets = async () => {
   const result = await fetch(`https://api.scryfall.com/sets`);
@@ -100,6 +100,26 @@ export const fetchSetByName = async (name: string) => {
     if (result.status === 200) {
       const set: Set = await result.json();
       return set;
+    }
+    return null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const fetchAllSymbols = async () => {
+  try {
+    const result = await fetch(`https://api.scryfall.com/symbology`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (result.status === 200) {
+      const { data }: { data: Symbol[] } = await result.json();
+      console.log(data);
+      return data;
     }
     return null;
   } catch (error) {
